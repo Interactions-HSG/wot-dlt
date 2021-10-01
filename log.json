@@ -1,0 +1,7 @@
+{ 
+  "sender" : {}
+  "timestamp" : {}
+  "data" : {} # raw stream
+  "form" : {}
+  "schema" : {}
+}
