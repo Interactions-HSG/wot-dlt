@@ -1,0 +1,62 @@
+{
+  "@context": [
+    "https://www.w3.org/2019/wot/td/v1",
+    {
+      "coap": "http://www.example.org/coap-binding#"
+    }
+  ],
+  "id": "tag:robotic-arm",
+  "title": "roboticArm",
+  "base": "coap://130.82.27.208:5683/roboticarm/",
+  "securityDefinitions": {
+    "nosec_sc": {
+      "scheme": "nosec"
+    }
+  },
+  "security": "nosec_sc",
+  "actions": {
+    "elbow": {
+      "description": "Set the value of the elbow joint.",
+      "forms": [
+        {
+          "coap:methodName": "PUT",
+          "op": "invokeaction",
+          "href": "actions/elbow",
+          "contentType": "application/json"
+        }
+      ],
+      "input": {
+        "type": "integer",
+        "minimum": 200,
+        "maximum": 830
+      }
+    }
+  },
+  "events": {
+    "elbow": {
+      "description": "Observe the value of the elbow joint.",
+      "observable": true,
+      "forms": [
+        {
+          "coap:methodName": "GET",
+          "op": ["subscribeevent"],
+          "href": "events/elbow",
+          "contentType": "application/json",
+          "coap:options": { "coap:optionCode": "Observe", "coap:optionValue": 0 }
+        },
+        {
+          "coap:methodName": "GET",
+          "op": ["unsubscribeevent"],
+          "href": "events/elbow",
+          "contentType": "application/json",
+          "coap:options":  { "coap:optionCode": "Observe", "coap:optionValue": 1 }
+        }
+      ],
+      "data": {
+        "type": "integer",
+        "minimum": 200,
+        "maximum": 830
+      }
+    }
+  }
+}

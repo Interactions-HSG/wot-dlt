@@ -1,0 +1,11 @@
+{
+    "description": "DLT for the WoT: Scripts for the exposed Thing",
+    "keywords": [
+        "wot",
+        "dlt"
+    ],
+    "name": "exposed-thing",
+    "dependencies": {
+       
+    }
+}

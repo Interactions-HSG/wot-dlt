@@ -1,0 +1,13 @@
+{
+    "description": "DLT for the WoT: Scripts for the WoT Consumer",
+    "keywords": [
+        "wot",
+        "dlt"
+    ],
+    "name": "wot-consumer",
+    "dependencies": {
+        "@node-wot/binding-coap": "^0.7.8",
+        "@node-wot/binding-file": "^0.7.8",
+        "@node-wot/core": "^0.7.8"
+    }
+}
