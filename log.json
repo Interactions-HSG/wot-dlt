@@ -1,7 +1,26 @@
-{ 
-  "sender" : {}
-  "timestamp" : {}
-  "data" : {} # raw stream
-  "form" : {}
-  "schema" : {}
+{  
+  "@context": [
+    "https://example.org/log#",
+    {
+      "td": "https://www.w3.org/2019/wot/td/v1",
+      "hctl": "https://www.w3.org/2019/wot/hypermedia#",
+      "js": "https://www.w3.org/2019/wot/json-schema#",
+      "coap": "http://www.example.org/coap-binding#"
+    }
+   ],
+  "sender" : {},
+  "timestamp" : {},
+  "data" : { "data": 400,
+             "form": {
+                "coap:methodName": "PUT",
+                "hctl:hasOperationType": "invokeaction",
+                "hctl:hasTarget": "coap://130.82.27.208:5683/actions/elbow",
+                "hctl:forContentType": "application/json"
+              },
+              "schema": {
+                "type": "integer",
+                "js:minimum": 200,
+                "js:maximum": 830
+              }
+           }
 }
