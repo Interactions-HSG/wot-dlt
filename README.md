@@ -5,5 +5,5 @@
 
 - Use `npm` to install the required node-wot packages:
 ```
-npm i @node-wot/core @node-wot/binding-coap --save
+npm i @node-wot/core @node-wot/binding-coap @node-wot/binding-file --save
 ```
