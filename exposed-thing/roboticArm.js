@@ -1,8 +1,10 @@
+console.log("Hello from WoT Consumer");
+
 const fs = require('fs');
 const EventEmitter = require('events');
 
 let elbowJointValue = 300;
-const elbowJointSpeed = 20; // in bits/sec
+const elbowJointSpeed = 15; // in bits/sec
 
 async function setElbow(value) {
     console.info("Setting elbow to:", value);
@@ -16,8 +18,9 @@ async function setElbow(value) {
     setTimeout(function() {
       clearInterval(inMovement);
       elbowJointValue = value;
-    }, Math.floor(simulationTime)*1000);
-    console.info("Setting elbow to:", elbowJointValue, "completed");
+      console.info("Setting elbow to:", elbowJointValue, "completed");
+    }, Math.floor(simulationTime) * 1000);
+    
 }
 
 module.exports.init = (WoT, roboticArmTDPath) => {
