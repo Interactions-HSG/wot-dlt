@@ -1,5 +1,5 @@
 console.log("Hello from WoT Thing");
-RoboticArm = require("./dist/roboticArm.js");
+RoboticArm = require("./roboticArm.js");
 
 const TD_FILE = "./td/robotic-arm-td.jsonld";
 
