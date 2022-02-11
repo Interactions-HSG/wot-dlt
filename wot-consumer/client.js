@@ -2,6 +2,7 @@
 const { Servient, Helpers } = require("@node-wot/core");
 const FileClientFactory = require("@node-wot/binding-file").FileClientFactory
 const CoapClientFactory = require("@node-wot/binding-coap").CoapClientFactory
+const DltClient = require("./dltClient.js");
 
 //const { CoapClientFactory } = require('@node-wot/binding-coap');
 
@@ -18,10 +19,18 @@ WoTHelpers.fetch(TD_FILE).then( async (td) => {
     servient.start().then((WoT) => {
       WoT.consume(td).then( async (thing) => {
 
+        roboticArm = thing;
+        let tdBase = roboticArm.getThingDescription().base;
+        let elbowAction = roboticArm.getThingDescription().actions.elbow;
+        let form = elbowAction.forms[0];
+        let to_adr = tdBase+form.href;
+        let from_adr = "coap://172.26.90.109:35447";
+
         //Set elbow joint value to 500
         console.log("Invoking action set elbow: /elbow", TARGET_VALUE)
         actionRes= thing.invokeAction("elbow", TARGET_VALUE);
         console.log(actionRes);
+        DltClient.sendTransaction(from_adr, to_adr, form, TARGET_VALUE);
 
         //Observe elbow joint value
         eventNotif = await thing.subscribeEvent("elbow", value => {

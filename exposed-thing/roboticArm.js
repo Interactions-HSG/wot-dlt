@@ -1,7 +1,5 @@
-console.log("Hello from WoT Consumer");
-
 const fs = require('fs');
-const EventEmitter = require('events');
+const DltClient = require("./dltClient.js");
 
 let elbowJointValue = 300;
 const elbowJointSpeed = 15; // in bits/sec
@@ -27,10 +25,14 @@ module.exports.init = (WoT, roboticArmTDPath) => {
     let td = JSON.parse(fs.readFileSync(roboticArmTDPath));
     WoT.produce(td).then(thing => {
         roboticArm = thing;
-
-        let elbowMin = thing.getThingDescription().actions.elbow.input.minimum;
-        let elbowMax = thing.getThingDescription().actions.elbow.input.maximum;
-        let form = thing.getThingDescription().events.elbow.forms[0];
+ 
+        let tdBase = roboticArm.getThingDescription().base;
+        let elbowAction = roboticArm.getThingDescription().actions.elbow;
+        let elbowMin = elbowAction.input.minimum;
+        let elbowMax = elbowAction.input.maximum;
+        let form = elbowAction.forms[0];
+        let to_adr = tdBase+form.href;
+        let from_adr = "coap://172.26.90.109:35447";
         
         //Set handler for the ActionAffordance elbow
         roboticArm.setActionHandler('elbow', (value) => {
@@ -38,8 +40,9 @@ module.exports.init = (WoT, roboticArmTDPath) => {
           return new Promise((resolve, reject) => {
             console.log("Received request for setting /elbow", value)
             if (value >= elbowMin && value <= elbowMax) {
-                setElbow(value);
+                DltClient.sendTransaction(from_adr, to_adr, form, value);
                 resolve();
+                //setElbow(value);
             }
             else {
               //If the input value exceeds the pertmitted range

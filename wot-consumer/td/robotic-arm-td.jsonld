@@ -7,7 +7,7 @@
   ],
   "id": "tag:robotic-arm",
   "title": "roboticArm",
-  "base": "coap://130.82.27.208:5683/roboticarm/",
+  "base": "coap://172.26.90.109:5683/roboticarm/",
   "securityDefinitions": {
     "nosec_sc": {
       "scheme": "nosec"
